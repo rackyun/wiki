@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-  <loc>https://www.rackyun.ml:8810/blog/summary/</loc>
-  <lastmod>2018-03-18T11:46:13+08:00</lastmod>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/</loc>
+  <lastmod>2018-03-18T11:48:55+08:00</lastmod>
 </url>
 
 <url>
-  <loc>https://www.rackyun.ml:8810/blog/summary/15213446875839.html</loc>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/15213446875839.html</loc>
   <lastmod>2018-03-18T11:44:47+08:00</lastmod>
 </url>
 
 <url>
-  <loc>https://www.rackyun.ml:8810/blog/summary/15213411103122.html</loc>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/15213411103122.html</loc>
   <lastmod>2018-03-18T10:45:10+08:00</lastmod>
 </url>
 
 <url>
-  <loc>https://www.rackyun.ml:8810/blog/summary/15212921864702.html</loc>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/15212921864702.html</loc>
   <lastmod>2018-03-17T21:09:46+08:00</lastmod>
 </url>
 
 <url>
-  <loc>https://www.rackyun.ml:8810/blog/summary/15212852694452.html</loc>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/15212852694452.html</loc>
   <lastmod>2018-03-17T19:14:29+08:00</lastmod>
 </url>
 
 <url>
-  <loc>https://www.rackyun.ml:8810/blog/summary/15212852539539.html</loc>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/15212852539539.html</loc>
   <lastmod>2018-03-17T19:14:13+08:00</lastmod>
 </url>
 
 
 
 <url>
-  <loc>https://www.rackyun.ml:8810/blog/summary/JVM.html</loc>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/JVM.html</loc>
+</url>
+
+<url>
+  <loc>https://www.rackyun.ml:8810/wiki/summary/Index.html</loc>
 </url>
 
 

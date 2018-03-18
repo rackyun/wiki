@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[个人技术图谱梳理]]></title>
-  <link href="https://www.rackyun.ml:8810/blog/summary/atom.xml" rel="self"/>
-  <link href="https://www.rackyun.ml:8810/blog/summary/"/>
-  <updated>2018-03-18T11:46:09+08:00</updated>
-  <id>https://www.rackyun.ml:8810/blog/summary/</id>
+  <link href="https://www.rackyun.ml:8810/wiki/summary/atom.xml" rel="self"/>
+  <link href="https://www.rackyun.ml:8810/wiki/summary/"/>
+  <updated>2018-03-18T11:46:13+08:00</updated>
+  <id>https://www.rackyun.ml:8810/wiki/summary/</id>
   <author>
     <name><![CDATA[]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java对象的内存结构]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15213446875839.html"/>
+    <link href="https://www.rackyun.ml:8810/wiki/summary/15213446875839.html"/>
     <updated>2018-03-18T11:44:47+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15213446875839.html</id>
+    <id>https://www.rackyun.ml:8810/wiki/summary/15213446875839.html</id>
     <content type="html"><![CDATA[
 
 ]]></content>
@@ -25,9 +25,9 @@
   
   <entry>
     <title type="html"><![CDATA[需要进一步研究的关键点]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15213411103122.html"/>
+    <link href="https://www.rackyun.ml:8810/wiki/summary/15213411103122.html"/>
     <updated>2018-03-18T10:45:10+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15213411103122.html</id>
+    <id>https://www.rackyun.ml:8810/wiki/summary/15213411103122.html</id>
     <content type="html"><![CDATA[
 <hr/>
 
@@ -44,9 +44,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java内存区域]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15212921864702.html"/>
+    <link href="https://www.rackyun.ml:8810/wiki/summary/15212921864702.html"/>
     <updated>2018-03-17T21:09:46+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15212921864702.html</id>
+    <id>https://www.rackyun.ml:8810/wiki/summary/15212921864702.html</id>
     <content type="html"><![CDATA[
 <p><img src="media/15212921864702/15212938305753.jpg" alt=""/></p>
 
@@ -111,9 +111,9 @@ HotSpot中曾经使用永久代来实现方法区，在永久代中使用分代�
   
   <entry>
     <title type="html"><![CDATA[GC算法知识整理]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15212852694452.html"/>
+    <link href="https://www.rackyun.ml:8810/wiki/summary/15212852694452.html"/>
     <updated>2018-03-17T19:14:29+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15212852694452.html</id>
+    <id>https://www.rackyun.ml:8810/wiki/summary/15212852694452.html</id>
     <content type="html"><![CDATA[
 <hr/>
 
@@ -127,9 +127,9 @@ HotSpot中曾经使用永久代来实现方法区，在永久代中使用分代�
   
   <entry>
     <title type="html"><![CDATA[梳理一下自己的知识体系]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15212852539539.html"/>
+    <link href="https://www.rackyun.ml:8810/wiki/summary/15212852539539.html"/>
     <updated>2018-03-17T19:14:13+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15212852539539.html</id>
+    <id>https://www.rackyun.ml:8810/wiki/summary/15212852539539.html</id>
     <content type="html"><![CDATA[
 <hr/>
 
