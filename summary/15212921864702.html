@@ -1,53 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-
-  <title><![CDATA[个人技术图谱梳理]]></title>
-  <link href="https://www.rackyun.ml:8810/blog/summary/atom.xml" rel="self"/>
-  <link href="https://www.rackyun.ml:8810/blog/summary/"/>
-  <updated>2018-03-18T11:46:09+08:00</updated>
-  <id>https://www.rackyun.ml:8810/blog/summary/</id>
-  <author>
-    <name><![CDATA[]]></name>
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
     
-  </author>
-  <generator uri="http://www.mweb.im">MWeb</generator>
-
+  Java内存区域 - 个人技术图谱梳理
   
-  <entry>
-    <title type="html"><![CDATA[Java对象的内存结构]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15213446875839.html"/>
-    <updated>2018-03-18T11:44:47+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15213446875839.html</id>
-    <content type="html"><![CDATA[
+  </title>
+ <meta name="description" content="个人技术图谱梳理">
+ <link href="atom.xml" rel="alternate" title="个人技术图谱梳理" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[需要进一步研究的关键点]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15213411103122.html"/>
-    <updated>2018-03-18T10:45:10+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15213411103122.html</id>
-    <content type="html"><![CDATA[
-<hr/>
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
 
-<h3 id="toc_0"><a href="15212921864702.html">Java内存区域</a></h3>
 
-<ul>
-<li>操作系统对一个进程里的线程数有限制，经验值在3000~5000 </li>
-<li>随着JIT编译器的发展与逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化发生，所有的对象都分配在堆上也逐渐变得不是那么“绝对”了。</li>
-<li>元空间</li>
-</ul>
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java内存区域]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15212921864702.html"/>
-    <updated>2018-03-17T21:09:46+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15212921864702.html</id>
-    <content type="html"><![CDATA[
+<div id="header">
+    <h1><a href="index.html">个人技术图谱梳理</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 个人技术图谱梳理</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>JVM</label></li>
+
+          
+            <li><a title="Java对象的内存结构" href="15213446875839.html">Java对象的内存结构</a></li>
+          
+            <li><a title="Java内存区域" href="15212921864702.html">Java内存区域</a></li>
+          
+            <li><a title="GC算法知识整理" href="15212852694452.html">GC算法知识整理</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>JVM</span></li>
+                        
+                          <li><a title="Java对象的内存结构" href="15213446875839.html">Java对象的内存结构</a></li>
+                        
+                          <li><a title="Java内存区域" href="15212921864702.html">Java内存区域</a></li>
+                        
+                          <li><a title="GC算法知识整理" href="15212852694452.html">GC算法知识整理</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>Java内存区域</h1>
+
 <p><img src="media/15212921864702/15212938305753.jpg" alt=""/></p>
 
 <p>Java程序运行时会将其管理的内存换分为几个区域，如图所示。</p>
@@ -106,41 +148,77 @@ HotSpot中曾经使用永久代来实现方法区，在永久代中使用分代�
 <li>直接内存不受Java堆大小的限制，直接内存加其他区域内存综合大于物理内存限制时会发生OutOfMemoryError</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[GC算法知识整理]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15212852694452.html"/>
-    <updated>2018-03-17T19:14:29+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15212852694452.html</id>
-    <content type="html"><![CDATA[
-<hr/>
 
-<p>垃圾回收算法主要解决三个问题：<br/>
-1. 哪些内存需要回收<br/>
-2. 什么时候回收<br/>
-3. 如何回收</p>
+</div>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[梳理一下自己的知识体系]]></title>
-    <link href="https://www.rackyun.ml:8810/blog/summary/15212852539539.html"/>
-    <updated>2018-03-17T19:14:13+08:00</updated>
-    <id>https://www.rackyun.ml:8810/blog/summary/15212852539539.html</id>
-    <content type="html"><![CDATA[
-<hr/>
+<br /><br />
+<hr />
 
-<h3 id="toc_0">整理计划</h3>
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15213411103122.html"  title="Previous Post: 需要进一步研究的关键点">&laquo; 需要进一步研究的关键点</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15212852694452.html" 
+	        title="Next Post: GC算法知识整理">GC算法知识整理 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
 
-<ol>
-<li> <a href="15212921864702.html">Java内存区域</a></li>
-<li> <a href="15212852694452.html">GC算法知识整理</a></li>
-</ol>
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
 
-]]></content>
-  </entry>
-  
-</feed>
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15212921864702.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>
