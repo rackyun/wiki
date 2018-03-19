@@ -110,6 +110,81 @@
 
 <hr/>
 
+<ul>
+<li>
+<a href="#toc_0">对象引用分析</a>
+<ul>
+<li>
+<a href="#toc_1">引用计数法</a>
+</li>
+<li>
+<a href="#toc_2">可达性分析</a>
+</li>
+<li>
+<a href="#toc_3">引用类型</a>
+</li>
+<li>
+<a href="#toc_4">finalize方法</a>
+</li>
+<li>
+<a href="#toc_5">回收方法区</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_6">垃圾收集算法</a>
+<ul>
+<li>
+<a href="#toc_7">标记-清除算法</a>
+</li>
+<li>
+<a href="#toc_8">复制算法</a>
+</li>
+<li>
+<a href="#toc_9">标记-整理算法</a>
+</li>
+<li>
+<a href="#toc_10">分代收集算法</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_11">HotSpot的算法实现</a>
+<ul>
+<li>
+<a href="#toc_12">枚举根节点</a>
+</li>
+<li>
+<a href="#toc_13">安全点</a>
+</li>
+<li>
+<a href="#toc_14">安全区域</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_15">垃圾收集器</a>
+<ul>
+<li>
+<a href="#toc_16">Serial收集器</a>
+</li>
+<li>
+<a href="#toc_17">ParNew(Parallel New)收集器</a>
+</li>
+<li>
+<a href="#toc_18">Parallel Scavenge收集器(吞吐量优先收集器)</a>
+</li>
+<li>
+<a href="#toc_19">Serial Old收集器</a>
+</li>
+<li>
+<a href="#toc_20">Parallel Old收集器</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
 <p>垃圾回收算法主要解决三个问题：<br/>
 1. 哪些内存需要回收<br/>
 2. 什么时候回收<br/>
@@ -169,7 +244,8 @@
 
 <h3 id="toc_10">分代收集算法</h3>
 
-<p>当前商业虚拟机的垃圾收集都采用了分代算法，根据对象的存活时间不同将内存分成几块，一般分为新生代和老年代，然后根据各个年代不同的特点在不同的区域使用不同的收集算法。</p>
+<p>当前商业虚拟机的垃圾收集都采用了分代算法，根据对象的存活时间不同将内存分成几块，一般分为新生代和老年代，然后根据各个年代不同的特点在不同的区域使用不同的收集算法。<br/>
+<img src="media/15212852694452/15214323424019.jpg" alt=""/></p>
 
 <h2 id="toc_11">HotSpot的算法实现</h2>
 
@@ -183,6 +259,34 @@
 
 <p><img src="media/15212852694452/15213810214661.jpg" alt=""/><br/>
 上图展示了7种作用于不同分代的收集器，如果两个收集器之间有连线，就说明它们可以搭配使用。</p>
+
+<h3 id="toc_16">Serial收集器</h3>
+
+<p>Serial收集器是一个单线程的新生代收集器，使用复制算法。它进行垃圾收集时，必须暂停所有的用户线程。是Jvm client模式下默认的新生代收集器。在单个CPU的环境下，Serial收集器没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。<br/>
+<img src="media/15212852694452/15214425876969.jpg" alt=""/><br/>
+Serial/Serial Old收集器运行示意图</p>
+
+<h3 id="toc_17">ParNew(Parallel New)收集器</h3>
+
+<p>ParNew收集器是Serial收集器的多线程版本，除了使用多个线程进行垃圾收集之外，其他行为包括Serial收集器可用的所有控制参数、收集算法、Stop the World、对象分配规则、回收策略等都与Serial收集器完全一样。<br/>
+ParNew收集器是唯一个可以与CMS收集器配合的多线程新生代收集算法，指定使用CMS收集器时，默认的新生代收集器也是ParNew。<br/>
+在单CPU环境下ParNew的效率不如Serial，随着CPU数量的增多，效率才会高于Serial。<br/>
+<img src="media/15212852694452/15214438006546.jpg" alt=""/><br/>
+ParNew/Serial Old收集器运行示意图</p>
+
+<h3 id="toc_18">Parallel Scavenge收集器(吞吐量优先收集器)</h3>
+
+<p>Parallel Scavenge收集器也是一个并发多线程的新生代收集器，也是使用的复制算法。特点是关注点与其他收集器不同，CMS等收集器关注的是尽可能地缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge的目标是达到一个可控制的吞吐量，吞吐量=程序运行时间/(程序运行时间+垃圾收集时间)</p>
+
+<h3 id="toc_19">Serial Old收集器</h3>
+
+<p>Serial的老年代版本，单线程收集使用“标记-整理”算法，主要在JVM client模式下使用。</p>
+
+<h3 id="toc_20">Parallel Old收集器</h3>
+
+<p>Parallel Old是Parallel Scavenge收集器的老年代版本，使用并发多线程收集用“标记-整理”算法实现。<br/>
+<img src="media/15212852694452/15214452957714.jpg" alt="示意图"/><br/>
+Parallel Scavenge/Parallel Old收集器运行示意图</p>
 
 
 </div>
