@@ -374,7 +374,7 @@ TLAB的目的是为了是提高对象内存分配的效率，如果对象在线�
 <h4 id="toc_27">G1的收集过程</h4>
 
 <p>G1的收集过程大致可以分为4个阶段<br/>
-1. 初始标记(STW)：对GC Roots能直接关联的对象进行标记，且修改TAMS(Next Top at Mark Start)的值。<br/>
+1. 初始标记(STW)：对GC Roots能直接关联的对象进行标记，且修改TAMS(Next Top at Mark Start)的值(Java 10由单线程改为多线程)。<br/>
 2. 并发标记：从GC Roots开始对整个堆进行分析，整个阶段用时较长，可以与用户线程并发执行；<br/>
 3. 最终标记：将上阶段中产生的Remembered Set Logs与Remembered Set合并，完成标记。该阶段会STW，但是可以并行执行。<br/>
 4. 筛选回收(STW)：对各个Region的回收价值和成本进行排序，根据用户期待的GC停顿时间来执行回收计划。G1 会识别完全空闲区域和可供进行Mixed<br/>
