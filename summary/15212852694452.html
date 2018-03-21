@@ -184,7 +184,26 @@
 <a href="#toc_21">CMS收集器</a>
 </li>
 <li>
-<a href="#toc_22">G1收集器</a>
+<a href="#toc_22">G1(Gebage-First)收集器</a>
+<ul>
+<li>
+<a href="#toc_23">对象分配策略</a>
+</li>
+<li>
+<a href="#toc_24">G1的两种GC模式</a>
+<ul>
+<li>
+<a href="#toc_25">G1 Young GC</a>
+</li>
+<li>
+<a href="#toc_26">G1 Mixed GC</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_27">G1的收集过程</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -312,7 +331,54 @@ Concurrent Mark Sweep 收集器运行示意图</p>
 2. CMS无法处理浮动垃圾，可能出现“Concurrent Mode Failure”，失败后会导致另一次FullGC的产生。由于CMS并发清理阶段用户线程还在运行，伴随程序的运行自然会有新的垃圾不断产生，这一部分垃圾出现在标记过程之后，CMS无法在本次收集中处理它们，只能留到下次GC进行清理。这一部分垃圾被称为“浮动垃圾”。由于CMS收集器收集阶段用户线程还要运行，需要预留一部分内存空间提供给收集时的用户线程使用。在默认配置下，CMS收集器在老年代使用了68%的内存空间时就会被激活，可以通过-XX:CMSInitiatingOccupancyFraction的值来设置触发百分比。要是CMS运行期间预留的内存无法满足程序其他线程的需要，就会出现“Concurrent Mode Failure”失败，这时虚拟机会启动后备预案：临时启动Serial Old收集器来重新进行老年代的垃圾收集，这样停顿时间就会很长了；<br/>
 3. CMS是基于“标记-清除”算法实现的收集器，会产生大量的空间碎片。空间碎片太多时，会给对象分配带来麻烦，内存空间找不到足够的连续空间时会提前触发Full GC。为了解决这个问题，CMS收集器提供了一个-XX:UseCMSCompactAtFullCollection开关参数，用于在Full GC之后增加一个碎片整理的过程，还可以通过-XX:CMSFullGCBeforeCompaction参数设置执行多少次不压缩的Full GC之后，进行一次碎片整理过程。</p>
 
-<h3 id="toc_22">G1收集器</h3>
+<h3 id="toc_22">G1(Gebage-First)收集器</h3>
+
+<p>G1不再是只管理新生代或者老年代，而是将整个Java堆划分成多个大小相等的独立区域(Region)，虽然还有新生代和老年代的区别，但不同代之间不再是物理隔离的，它们都是一部分Region的集合。<br/>
+G1通过跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小以及回收所需时间的经验值），在后台维护一个优先队列，每次根据允许的收集时间，优先回收价值最大的Region。<br/>
+在G1收集器中，Region之间的对象引用以及其他收集器中的新生代和老年代之间的对象引用，虚拟机都是使用Remembered Set来避免全堆扫描。G1中每个Region都有一个与之对应的Remembered Set，虚拟机发现程序在对Reference类型的数据进行写操作时，会产生一个Write Barrier暂时中断写操作，检查Reference引用的对象是否处于不同的Region之中，如果是，便通过CardTable把相关的引用信息记录到被引用对象所属的Region的Remembered Set之中。当进行内存回收时，在GC Roots的范围中加入Remembered Set即可保证不对全堆扫描也不会遗漏。<br/>
+G1收集器的特点：<br/>
+- 并行与并发：G1能够充分利用多CPU来缩短Stop-The-World停顿的时间，部分其他收集器原本需要停顿的GC动作，G1收集器可以通过并发的方式让Java程序继续运行；<br/>
+- 空间整合：G1整体上看是基于“标记-整理”算法实现，从局部(两个Region之间)上看是基于“复制”算法实现的，避免了内存碎片的问题；<br/>
+- 可预测的停顿：G1除了追求低停顿，还能建立可预测的停顿时间模型。</p>
+
+<p>在G1中有一类特殊Region，叫Humongous区域，如果一个对象占用的空间超过分区容量的50%以上，G1收集器就会认为是一个巨型对象。这些巨型对象，默认直接会被分配在老年代。G1划分了Humongous区，用来专门存放巨型对象。如果一个H区装不下一个巨型对象，那么G1会寻找连续的H分区来存储。为了找到连续的H区，有可能会启动Full GC。</p>
+
+<h4 id="toc_23">对象分配策略</h4>
+
+<p>对象分配分为3个阶段：<br/>
+1. TLAB(Thread Local Allocation Buffer)线程本地分配缓冲区<br/>
+2. Eden区分配<br/>
+3. Humongous区分配<br/>
+TLAB的目的是为了是提高对象内存分配的效率，如果对象在线程共享内存区域分配，需要采用同步机制来管理这些空间的空闲内存指针。在Eden空间中，每个线程都有一个固定的分区用来分配对象，即TLAB。这样分配对象时，就不需要同步机制了。<br/>
+对TLAB空间中无法分配的对象，JVM会尝试在Eden空间中进行分配。如果Eden空间无法容纳，就只能在老年代中进行分配。</p>
+
+<h4 id="toc_24">G1的两种GC模式</h4>
+
+<p>G1提供了两种GC模式，Young GC和Mixed GC，都是STW的。</p>
+
+<h5 id="toc_25">G1 Young GC</h5>
+
+<p>Young GC分为5个阶段<br/>
+1. 根扫描：静态和本地对象被扫描<br/>
+2. 更新Remembered Set：处理dirty card队列更新Remembered Set<br/>
+3. 处理Remembered Set：检测从年轻代指向老年代的对象<br/>
+4. 对象拷贝：拷贝存活的对象到Survivor/Old区<br/>
+5. 处理引用队列：软引用、弱引用、虚引用处理</p>
+
+<h5 id="toc_26">G1 Mixed GC</h5>
+
+<p>Mixed GC分为两个阶段<br/>
+1. 全局并发标记(Global concurrent marking)<br/>
+2. 拷贝存活对象(evacuation)</p>
+
+<h4 id="toc_27">G1的收集过程</h4>
+
+<p>G1的收集过程大致可以分为4个阶段<br/>
+1. 初始标记(STW)：对GC Roots能直接关联的对象进行标记，且修改TAMS(Next Top at Mark Start)的值。<br/>
+2. 并发标记：从GC Roots开始对整个堆进行分析，整个阶段用时较长，可以与用户线程并发执行；<br/>
+3. 最终标记：将上阶段中产生的Remembered Set Logs与Remembered Set合并，完成标记。该阶段会STW，但是可以并行执行。<br/>
+4. 筛选回收(STW)：对各个Region的回收价值和成本进行排序，根据用户期待的GC停顿时间来执行回收计划。G1 会识别完全空闲区域和可供进行Mixed<br/>
+GC 的区域，清理阶段将空白区域重置并返回到空闲列表时为部分并发。</p>
 
 
 </div>
