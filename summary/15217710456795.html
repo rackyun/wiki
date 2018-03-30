@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  需要进一步研究的关键点 - 个人技术图谱梳理
+  代理模式与装饰器模式 - 个人技术图谱梳理
   
   </title>
  <meta name="description" content="个人技术图谱梳理">
@@ -138,18 +138,9 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-<h1>需要进一步研究的关键点</h1>
+<h1>代理模式与装饰器模式</h1>
 
-<hr/>
-
-<h3 id="toc_0"><a href="15212921864702.html">Java内存区域</a></h3>
-
-<ul>
-<li>操作系统对一个进程里的线程数有限制，经验值在3000~5000 </li>
-<li>随着JIT编译器的发展与逃逸分析技术逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化发生，所有的对象都分配在堆上也逐渐变得不是那么“绝对”了。</li>
-<li>元空间</li>
-<li>Survivor空间的分配担保</li>
-</ul>
+<p>代理模式和装饰器模式的关注点不同，代理模式关注于控制对对象的访问，可以对客户隐藏一个对象的具体信息，生活中的代理就是客户只跟代理人打交道，由代理人与上游供应商打交道；装饰器关注对一个对象的动态增强，一般使用装饰器模式的时候会将原始对象作为参数传递给装饰器的构造器。</p>
 
 
 </div>
@@ -161,15 +152,15 @@
   <div class="large-6 columns">
 	<div class="text-left" style="padding:15px 0px;">
 		
-	        <a href="15213446875839.html"  title="Previous Post: Java对象的内存结构">&laquo; Java对象的内存结构</a>
+	        <a href="15217906741904.html"  title="Previous Post: TCP与UDP">&laquo; TCP与UDP</a>
 	    
 	</div>
   </div>
   <div class="large-6 columns">
 	<div class="text-right" style="padding:15px 0px;">
 		
-	        <a href="15212921864702.html" 
-	        title="Next Post: Java内存区域">Java内存区域 &raquo;</a>
+	        <a href="15213446875839.html" 
+	        title="Next Post: Java对象的内存结构">Java对象的内存结构 &raquo;</a>
 	    
 	</div>
   </div>
@@ -182,7 +173,7 @@
 </div>
 <script type="text/javascript">
 	$(function(){
-		var currentURL = '15213411103122.html';
+		var currentURL = '15217710456795.html';
 		$('#side-nav a').each(function(){
 			if($(this).attr('href') == currentURL){
 				$(this).parent().addClass('active');
